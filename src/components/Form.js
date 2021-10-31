@@ -1,120 +1,166 @@
 import React, { useState } from "react"
 import UI from "../UI";
 import ExperienceForm from "./ExperienceForm";
+import { v4 } from 'uuid'
+import PersonalInfo from "./PersonalInfo";
+import Education from "./Education";
 
 function Form() {
-    const [yourName, setName] = useState("hritik");
-    const [email, setEmail] = useState("hritik@gmail.com");
-    const [contact, setContact] = useState("4345634634");
+    const [personalInfo, setPersonalInfo] = useState({
+        name: "",
+        email: "",
+        contact: "",
+        id:v4()
+    })
 
-    const [school, setSchool] = useState("")
-    const [studyTitle, setStudyTitle] = useState("")
-    const [studyDate, setStudyDate] = useState("")
+    const [experience, setExperience] = useState([{
+        companyName: "",
+        positionTitle: "",
+        jobTasks: "",
+        jobDuration: "",
+        id: v4()
+    }])
 
-    const [companyName, setCompanyName] = useState("")
-    const [positionTitle, setPositionTitle] = useState("")
-    const [jobTasks, setJobTasks] = useState()
-    const [jobDuration, setJobDuration] = useState()
+    const [education, setEducation] = useState([{
+        schoolName: "",
+        studyTitle: "",
+        studyDate: "",
+        id: v4()
+    }])
 
-    const ExpData = {
-        companyName,
-        positionTitle,
-        jobTasks,
-        jobDuration,
-        handleCompanyName,
-        handlePositionTitle,
-        handleJobTasks,
-        handleJobDuration
+    //Edit Personal Info
+    function onPersonalInfoChange(event) {
+        const { name, value } = event.target
+        setPersonalInfo(prevState => {
+            const newInfo = { ...prevState, [name]: value }
+            return newInfo
+        })
     }
 
-    //Personal Info
-    const handleName = (event) => {
-        const value = event.target.value
-        setName(value)
+    //Edit Experience Info
+    function handleExpChange(event, id) {
+        const { name, value } = event.target;
+        setExperience(prevState => {
+            const newState = [...prevState];
+            newState.forEach(item => {
+                if (item.id === id) {
+                    return item[name] = value
+                }
+            })
+
+            return newState
+        })
     }
 
-    const handleEmail = (event) => {
-        const value = event.target.value
-        setEmail(value)
+    //Add More Experience Info Fields
+    function addExpForm() {
+        setExperience(prevState => {
+            const newState = [...prevState];
+            const newForm = {
+                companyName: "",
+                positionTitle: "",
+                jobTasks: "",
+                jobDuration: "",
+                id: v4()
+            }
+            newState.push(newForm)
+
+            return newState
+        })
     }
 
-    const handleContact = (event) => {
-        const value = event.target.value
-        setContact(value)
+    //Delete Experience Info Fields
+    function deleteExpForm(id) {
+        setExperience(prevState=>{
+            const newInfo = [...prevState]
+            newInfo.forEach(item=>{
+                if(item.id===id){
+                    const index = newInfo.indexOf(item)
+                    newInfo.splice(index, 1)
+                }
+            })
+            return newInfo
+        })
+    }
+
+    //Edit Education Info
+    function handleEduChange(event, id) {
+        const {name, value} = event.target
+        setEducation(prevState => {
+            const newInfo = [...prevState]
+            newInfo.forEach(item => {
+                if (item.id === id) {
+                    item[name] = value
+                    return item
+                }
+            })
+            return newInfo
+        })
+    }
+
+    //Add More Education Fields
+    function addEducationForm() {
+        const format = {
+            schoolName: "",
+            studyTitle: "",
+            studyDate: "",
+            id: v4()
+        }
+        setEducation(prevState=>{
+            const newInfo = [...prevState, format]
+            return newInfo
+        })
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
     }
 
-    //Experience
-
-    function handleCompanyName(event) {
-        const value = event.target.value
-        setCompanyName(value)
+    //Delete Education Fields
+    function deleteEduForm(id){
+        setEducation(prevState=>{
+            const newInfo = [...prevState]
+            newInfo.forEach(item=>{
+                if(item.id===id){
+                    const index = newInfo.indexOf(item)
+                    newInfo.splice(index, 1)
+                }
+            })
+            return newInfo
+        })
     }
 
-    function handlePositionTitle(event) {
-        const value = event.target.value
-        setPositionTitle(value)
-    }
-
-    function handleJobTasks() {
-        setJobTasks()
-    }
-
-    function handleJobDuration() {
-        setJobDuration()
-    }
-
-    //Education
-
-    function handleSchoolName(event) {
-        const value = event.target.value;
-        setSchool(value)
-    }
-
-    function handleStudyTitle(event) {
-        const value = event.target.value;
-        setStudyTitle(value)
-    }
-
-    function handleStudyDate(event) {
-        const value = event.target.value;
-        setStudyDate(value)
-    }
-
-    //Add More Functionality
+    //Render
 
     return (
-        <div style={{display:"flex", flexDirection:"column", alignItems:"center",marginRight:"20rem"}}>
-            <div style={{width:"50%"}}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "20rem" }}>
+            <div style={{ width: "50%" }}>
                 <form onSubmit={handleSubmit}>
-                Personal Info
-                <br/>
-                    <input type="text" name="name" onChange={handleName} value={yourName}></input>
-                    <input type="text" name="email" onChange={handleEmail} value={email}></input>
-                    <input type="number" name="contact" onChange={handleContact} value={contact}></input>
-                <br/>
+                    Personal Info
+                    <br />
+                    <PersonalInfo key={personalInfo.id} data={personalInfo} onHandleChange={onPersonalInfoChange} />
+                    <br />
 
-                Experience
-                <br/>
-                <div id="experienceForm">
-                    <ExperienceForm data={ExpData}/>
-                </div>
+                    Experience
+                    <br />
+                    <div id="experienceForm">
+                        {experience.map(item => {
+                            return <ExperienceForm key={item.id} data={item} onHandleChange={handleExpChange} onHandleDelete={deleteExpForm} />
+                        })}
+                    </div>
 
-                <button>Add More</button><br/>
+                    <button onClick={addExpForm}>Add More</button><br />
 
-                Education
-                <br/>
-                    <input type="text" value={school} onChange={handleSchoolName} placeholder="School Name" />
-                    <input type="text" value={studyTitle} onChange={handleStudyTitle} placeholder="Study Title" />
-                    <input type="date" value={studyDate} onChange={handleStudyDate} />
+                    Education
+                    <br />
+                    {education.map(item => {
+                        return <Education key={item.id} data={item} onHandleChange={handleEduChange} onHandleDelete={deleteEduForm} />
+                    })}
                 </form>
-                <button>Add More</button><br/>
+                <button onClick={addEducationForm}>Add More</button><br />
             </div>
 
-            <UI name={yourName} email={email} contact={contact} school={school} studyTitle={studyTitle} studyDate={studyDate} company={companyName} position={positionTitle} />
+            <UI personal={personalInfo} education={education} ExpForm={experience} />
         </div>
     )
 }

@@ -6,18 +6,19 @@ function ExperienceForm(props) {
         positionTitle,
         jobTasks,
         jobDuration,
-        handleCompanyName,
-        handlePositionTitle,
-        handleJobTasks,
-        handleJobDuration
+        id,
     } = props.data
+
+    const onHandleChange = props.onHandleChange
+    const onHandleDelete = props.onHandleDelete
 
     return (
         <div>
-            <input type="text" value={companyName} onChange={handleCompanyName} placeholder="Company Name" />
-            <input type="text" value={positionTitle} onChange={handlePositionTitle} placeholder="Position Title" />
-            <input type="text" value={jobTasks} onChange={handleJobTasks} />
-            <input type="text" value={jobDuration} onChange={handleJobDuration} />
+            <input type="text" name="companyName" value={companyName} onChange={(event)=>onHandleChange(event, id)} placeholder="Company Name" />
+            <input type="text" name="positionTitle" value={positionTitle} onChange={(event)=>onHandleChange(event,id)} placeholder="Position Title" />
+            <input type="text" name="jobTasks" value={jobTasks} onChange={(event)=>onHandleChange(event,id)} />
+            <input type="text" name="jobDuration" value={jobDuration} onChange={(event)=>onHandleChange(event,id)} />
+            <button onClick={()=>onHandleDelete(id)}></button>
         </div>
     )
 }
