@@ -1,13 +1,9 @@
-import GeneralEdu from "./components/GeneralEdu";
-import EduExperience from "./components/EduExperience";
-import PracticalExperience from "./components/PracticalExperience";
+import Form from "./components/Form";
 
 function App() {
   return (
-    <div>
-      <GeneralEdu />
-      <PracticalExperience />
-      <EduExperience />
+    <div style={{width:"100%",}}>
+      <Form />
 
     </div>
   );
