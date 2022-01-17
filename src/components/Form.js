@@ -130,11 +130,19 @@ function Form() {
         })
     }
 
+    function generateCV(){
+        const form = document.getElementById("form")
+        const uiDisplay = document.getElementById("uiDisplay")
+        form.style.display = "none"
+        uiDisplay.style.marginLeft = "20rem"
+    }
+
     //Render
 
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "20rem" }}>
-            <div style={{ width: "50%" }}>
+            <h2>Resume Builder!</h2>
+            <div id="form">
                 <form onSubmit={handleSubmit}>
                     Personal Info
                     <br />
@@ -147,9 +155,9 @@ function Form() {
                         {experience.map(item => {
                             return <ExperienceForm key={item.id} data={item} onHandleChange={handleExpChange} onHandleDelete={deleteExpForm} />
                         })}
+                        <button onClick={addExpForm}>Add More</button><br />
                     </div>
 
-                    <button onClick={addExpForm}>Add More</button><br />
 
                     Education
                     <br />
@@ -158,9 +166,11 @@ function Form() {
                     })}
                 </form>
                 <button onClick={addEducationForm}>Add More</button><br />
+                <button onClick={generateCV}>Generate CV</button>
             </div>
 
             <UI personal={personalInfo} education={education} ExpForm={experience} />
+
         </div>
     )
 }

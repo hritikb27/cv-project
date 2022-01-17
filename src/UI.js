@@ -2,9 +2,10 @@ import React from "react";
 
 function UI(props) {
     return (
-        <div style={{ minHeight: "70%", minWidth: "20%", border: "2px solid black", marginLeft: "80rem", marginTop: "0", width: "auto", position: "absolute", boxSizing: "border-box" }}>
+        <div id="uiDisplay" style={{ minHeight: "70%", minWidth: "20%", border: "2px solid black", marginLeft: "80rem", marginTop: "0", width: "auto", position: "absolute", boxSizing: "border-box" }}>
+            <h1 style={{textAlign:"center", color:"whitesmoke"}}>Resume</h1>
 
-            {<div style={{backgroundColor:"brown", color:"whitesmoke"}}>
+            {<div style={{backgroundColor:"#f8f8ff", color:"black"}}>
                 <h1>{props.personal.name}<br />
                     {props.personal.email}<br />
                     {props.personal.contact}</h1>
@@ -14,17 +15,19 @@ function UI(props) {
             <br />
 
             {props.ExpForm.map(item => {
-                return <div style={{backgroundColor:"pink", color:"whitesmoke"}} key={item.id} >
+                return <div style={{backgroundColor:"#f8f8ff", color:"black"}} key={item.id} >
                     Experience
                     <h1>{item.companyName}</h1>
                     <h1>{item.positionTitle}</h1>
                     <h1>{item.jobTasks}</h1>
+                    <h1>{item.jobDuration}</h1>
                 </div>
             })}
             <br />
 
             {props.education.map(item=>{
-                return <div key={item.id}>
+                return <div style={{backgroundColor:"#f8f8ff", color:"black"}} key={item.id}>
+                    Education
                     <h1>{item.schoolName}</h1>
                     <h1>{item.studyTitle}</h1>
                     <h1>{item.studyDate}</h1>
