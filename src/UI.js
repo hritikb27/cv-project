@@ -2,7 +2,7 @@ import React from "react";
 
 function UI(props) {
     return (
-        <div id="uiDisplay" style={{ minHeight: "70%", minWidth: "20%", border: "2px solid black", marginLeft: "80rem", marginTop: "0", width: "auto", position: "absolute", boxSizing: "border-box" }}>
+        <div id="uiDisplay">
             <h1 style={{textAlign:"center", color:"whitesmoke"}}>Resume</h1>
 
             {<div style={{backgroundColor:"#f8f8ff", color:"black"}}>

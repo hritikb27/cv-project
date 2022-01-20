@@ -140,9 +140,9 @@ function Form() {
     //Render
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginRight: "20rem" }}>
-            <h2>Resume Builder!</h2>
+        <div id="resumeBody">
             <div id="form">
+                <h2>Resume Builder!</h2>
                 <form onSubmit={handleSubmit}>
                     Personal Info
                     <br />
@@ -151,12 +151,12 @@ function Form() {
 
                     Experience
                     <br />
-                    <div id="experienceForm">
+
                         {experience.map(item => {
                             return <ExperienceForm key={item.id} data={item} onHandleChange={handleExpChange} onHandleDelete={deleteExpForm} />
                         })}
                         <button onClick={addExpForm}>Add More</button><br />
-                    </div>
+
 
 
                     Education

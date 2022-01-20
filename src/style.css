@@ -3,12 +3,26 @@ html, body{
     box-sizing: border-box;
     background-color: #6645eb;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+}
+
+#resumeBody{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
 }
 
 h2{
     padding: 0;
     margin: 0;
-    color: lightcyan;
+    color: black;
 }
 
 form{
@@ -33,6 +47,7 @@ form{
     flex-direction: column;
     gap: 5px;
     align-items: center;
+    width: 100%;
 }
 
 .form-control {
@@ -73,4 +88,50 @@ form{
     flex-direction: column;
     align-items: center;
     gap: 5px;
+}
+
+#uiDisplay{
+    border: 2px solid black;
+    width: 50%;
+}
+
+@media only screen and (min-width: 320px) {
+    html,body{
+        width: 100%;
+    }
+
+    #form{
+        width: 100%;
+    }
+    
+    #resumeBody{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50%;
+    }
+
+    #uiDisplay{
+        width: 100%;
+        min-height: 736px;
+        border-radius: 5px;
+    }
+
+    #uiDisplay h1{
+        font-size: 1em;
+    }
+
+    .form-div input{
+        max-width: 60%;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    #resumeBody{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 50px;
+        width: 50%;
+    }
 }
